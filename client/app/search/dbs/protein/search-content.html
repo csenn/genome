@@ -1,0 +1,31 @@
+<div class="search-results-content search-protein">
+
+  <div class="selected-title">
+    <span class="name">{{selectedData.summary.title}}</span>
+    <span class="data-id">
+      uid - {{selectedData.summary.uid}}
+    </span>
+  </div>
+
+  <div class="search-results-content-data"  ng-show="selectedData.summary">
+
+    <ge-collapse label="'Summary'" open="true">
+      <div>
+        <strong>Organism:</strong>
+        {{selectedData.summary.organism}}
+      </div>
+    </ge-collapse>
+
+    <ge-collapse label="'Sequence'" open="true">
+      <div>
+        <strong>Length</strong> {{selectedData.details.TSeqSet.TSeq.TSeq_length}}
+      </div>
+      <strong>Sequence</strong>
+      <div class="sequence-box">
+        {{selectedData.details.TSeqSet.TSeq.TSeq_sequence}}
+      </div>
+    </ge-collapse>
+
+  </div>
+
+</div>

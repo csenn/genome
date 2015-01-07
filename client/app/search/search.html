@@ -1,0 +1,108 @@
+<div id="search">
+
+  <div class="search-top">
+    <form>
+
+      <input class="search-input" type="text" ng-disabled="!selectedDb.name" ng-model="search.text"/>
+
+      <button
+        type="submit"
+        class="search-btn"
+        ng-click="searchForText(search.text)"
+        ng-disabled="!search.text">
+        <fa class="fa fa-search"></fa>
+      </button>
+
+      <button
+        class="help-btn"
+        ng-click="toggleHelp();"
+        ng-disabled="!selectedDb.name">
+        <fa class="fa fa-question"></fa>
+      </button>
+
+
+     <span class="db-btn-container">
+        <drop-down items="dbs" selected-item="selectedDb"></drop-down>
+      </span>
+
+      <button
+        class="advanced-label hover-pointer grey-btn"
+        ng-click="toggleAdvanced();"
+        ng-disabled="!selectedDb.name">
+        Advanced
+      </button>
+
+    </form>
+
+     <ge-spinner class="spinner"></ge-spinner>
+  </div>
+
+  <div class="shadow-cover" ng-if="showAdvanced || showHelp"></div>
+
+  <div class="row"  ng-if="!selectedDb.name">
+    <div class="columns small-10 small-offset-1 end">
+      <div class="welcome-box">
+        <p>Welcome!</p>
+        <p><strong>Choose</strong> a Database to Search</p>
+        <p>Click the <fa class="fa fa-question"></fa> button to get more info on any database</p>
+      </div>
+    </div>
+  </div>
+
+  <ge-advanced-search is-open="showAdvanced" selected-db="selectedDb">
+  </ge-advanced-search>
+
+  <div  class="row" ng-if="showHelp">
+    <div id="help-box" class="column small-10 small-offset-1" >
+      <div ng-include="'/search/dbs/' + selectedDb.name + '/help.html'"></div>
+    </div>
+  </div>
+
+  <div
+    class="enter-search-terms"
+    ng-show="search.resultCount === 0 && selectedDb.name && !search.text &&!showAdvanced && !showHelp">
+    Enter Your Search Terms
+  </div>
+
+  <div
+    class="enter-search-terms"
+    ng-show="showZeroResults">
+    No Results Match Your Query
+  </div>
+
+
+  <ge-search-slider ng-if="search.resultCount > 0 && selectedDb.name">
+
+    <ge-left-side>
+      <div class="paging-box" ng-show="search.resultCount !== 0">
+        <span class="page-number">
+          {{getPageSpread()}}
+          <span class="of"> of </span>
+          {{search.resultCount | number:0}}
+        </span>
+        <button class="grey-btn" ng-click="previousPage()">
+          <fa class="fa fa-chevron-left"></fa>
+        </button>
+        <button class="grey-btn" ng-click="nextPage()">
+          <fa class="fa fa-chevron-right"></fa>
+        </button>
+      </div>
+
+      <div class="search-section-content">
+        <div ng-include="'/search/dbs/' + selectedDb.name + '/search-results.html'"></div>
+        <div class="bottom-box" ng-show="search.results.uids.length > 0">
+          Source: http://www.ncbi.nlm.nih.gov/{{selectedDb.name}}
+        </div>
+      </div>
+
+    </ge-left-side>
+
+
+    <ge-right-side >
+      <div ng-if="selectedData.summary" ng-include="'/search/dbs/' + selectedDb.name + '/search-content.html'"></div>
+    </ge-right-side>
+
+  </ge-search-slider>
+
+
+</div>

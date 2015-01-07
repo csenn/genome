@@ -1,0 +1,10 @@
+<div class="search-result hover-pointer"
+	ng-repeat="result in search.results"
+	ng-if="result.title"
+	ng-click="selectSearchResult(result);">
+	<div class="result-name">
+		{{result.title}}
+	</div>
+	<p>{{result.definition}}</p>
+	<div class="semantic-type">{{result.semantictype}}</div>
+</div>

@@ -1,0 +1,69 @@
+<div class="search-results-content">
+
+  <div class="selected-title">
+    <span class="name">
+      {{selectedData.summary.name}} - 
+      <span class="blue">{{selectedData.summary.description}}</span>
+    </span>
+    <span class="data-id">
+      uid - {{selectedData.summary.uid}}
+    </span>
+  </div>
+
+  <div class="search-results-content-data"  ng-show="selectedData.summary">
+
+    <ge-collapse label="'Summary'" open="true">
+
+      <div>
+        <strong>Organism:</strong>
+        {{selectedData.summary.organism.scientificname}} ({{selectedData.summary.organism.commonname}})
+      </div>
+
+      <div>
+        <strong>Chromosome:</strong>
+        {{selectedData.summary.chromosome}}
+      </div>
+      <div>
+      <strong>Cytogenetic location:</strong>
+        {{selectedData.summary.maplocation}}
+      </div>
+
+      <ge-collapse label="'Alternate Name'" class="child-collapse">
+        <div>
+          <strong>Aliases</strong>: {{selectedData.summary.otheraliases}}
+        </div>
+        <div>
+          <strong>Designations</strong>: {{selectedData.summary.otherdesignations}}
+        </div>
+      </ge-collapse>
+
+    </ge-collapse>
+
+
+    <ge-collapse
+      label="'Genomic Info'"
+      ng-show="selectedData.summary.summary"
+      open="true">
+        <div>
+          <strong>Start</strong>: {{selectedData.summary.genomicinfo[0].chrstart}}
+        </div>
+        <div>
+          <strong>Stop</strong>: {{selectedData.summary.genomicinfo[0].chrstop}}
+        </div>
+        <div>
+          <strong>Exxon Count</strong>: {{selectedData.summary.genomicinfo[0].exoncount}}
+        </div>
+    </ge-collapse>
+
+
+    <ge-collapse
+      label="'Description'"
+      class="def-box"
+      ng-show="selectedData.summary.summary"
+      open="true">
+        <p>{{selectedData.summary.summary}}</p>
+    </ge-collapse>
+
+  </div>
+
+</div>

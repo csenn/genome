@@ -1,0 +1,208 @@
+
+
+  <div class="advanced-search">
+
+
+
+    <div class="header-item">
+      <span class="name">{{selectedDb.display}}</span>
+      - Filters
+    </div>
+    <div class="search-items">
+      <div
+        class="search-item hover-pointer"
+        ng-repeat="filter in advancedFilters | orderBy:'fullname'"
+        ng-class="filter === selected.advancedFilter ? 'selected-search-item' : '' "
+        ng-click="selectFilter(filter)">
+        {{filter.fullname}}
+      </div>
+    </div>
+
+    <div class="search-content">
+      <div class="advanced-title">
+        Advanced Query Builder
+        <span class="hover-pointer" ng-click="close()">
+          <fa class="fa fa-remove" ></fa>
+        </span>
+        <span class="clear-span hover-pointer" ng-click="clearAll()">clear</span>
+
+      </div>
+
+      <div class="query-well">
+        <div ng-show="!selected.advancedFilter && !queryStr">Choose Filter</div>
+        <div ng-show="selected.advancedFilter && !queryStr">Build query below</div>
+        <div ng-show="queryStr">{{queryStr}}</div>
+
+        <button class="search-btn grey-btn" ng-click="search()">
+          <fa class="fa fa-search"></fa>
+        </button>
+      </div>
+
+
+
+      <form class="add-param-form">
+
+        <div class="selected-filter-name" ng-show="selected.advancedFilter">
+          {{selected.advancedFilter.fullname}} - <span>{{selected.advancedFilter.description}}</span>
+        </div>
+
+        <div class="row" ng-show="selected.advancedFilter">
+
+          <div class="columns small-2">
+            <select
+              ng-show="!isFirst()"
+              ng-model="selectedAdvancedFilterOperator"
+              ng-options="operator.name for operator in advancedFilterOperators">
+            </select>
+            <div class="choose-box" ng-show="isFirst()">
+              Search
+            </div>
+          </div>
+
+          <div class="columns small-8">
+            <div class="text-input-box">
+              <input type="text" ng-model="newAdvancedFilter.text" placholder="search term"/>
+            </div>
+          </div>
+
+          <div class="columns small-2">
+            <button
+              class="add-btn grey-btn"
+              type="submit"
+              ng-disabled="!selected.advancedFilter || !newAdvancedFilter.text"
+              ng-click="addAdvancedFilter(selectedAdvancedFilterOperator,selected.advancedFilter,newAdvancedFilter.text)">
+              <fa class="fa fa-plus"></fa>
+            </button>
+          </div>
+
+        </div>
+      </form>
+
+
+      <div class="row">
+        <div class="columns small-12">
+
+          <div class="param-items">
+            <div class="param-item" ng-repeat="param in queryParams">
+              <div class="row">
+                <div class="column small-2 center-me">
+                  <span ng-show="$index == 0" class="operator-hide">0</span>
+                  <span ng-show="$index !== 0" class="operator">{{param.operator}}</span>
+                </div>
+                <div class="column small-4">
+                  {{param.field}}
+                </div>
+                <div class="column small-4">
+                  {{param.text}}
+                </div>
+                 <div class="column small-2 center-me">
+                  <fa class="fa fa-remove hover-pointer" ng-click="removeParam(param)"></fa>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+<!--
+
+   <div class="row">
+      <div class="columns small-12">
+        <div class="advanced-title">{{selectedDb.display}} - Query Builder</div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="columns small-10">
+        <div class="query-well">
+          <div ng-show="!queryStr">Build query below</div>
+          <div ng-show="queryStr">{{queryStr}}</div>
+        </div>
+      </div>
+
+      <div class="columns small-2">
+        <button class="search-btn grey-btn" ng-click="search()">
+          <fa class="fa fa-search"></fa>
+        </button>
+      </div>
+
+    </div>
+
+
+    <div class="row add-param-title">
+      <div class="columns small-12">
+        Build Query
+      </div>
+    </div>
+
+
+    <form class="add-param-form">
+      <div class="row">
+
+        <div class="columns small-2">
+          <select
+            ng-show="!isFirst()"
+            ng-model="selectedAdvancedFilterOperator"
+            ng-options="operator.name for operator in advancedFilterOperators">
+          </select>
+          <div class="choose-box" ng-show="isFirst()">
+            Choose
+          </div>
+          <label>Operator</label>
+        </div>
+
+        <div class="columns small-3">
+          <select
+            ng-model="selectedAdvancedFilter"
+            ng-options="filter.fullname for filter in advancedFilters | orderBy:'fullname'">
+          </select>
+          <label>Field Name</label>
+        </div>
+
+        <div class="columns small-5 ">
+          <div class="text-input-box">
+            <input type="text" ng-model="newAdvancedFilterText"/>
+          </div>
+          <label>{{selectedAdvancedFilter.description}}</label>
+        </div>
+
+        <div class="columns small-2">
+          <button
+            class="add-btn grey-btn"
+            type="submit"
+            ng-disabled="!selectedAdvancedFilter || !newAdvancedFilterText"
+            ng-click="addAdvancedFilterToQuery(selectedAdvancedFilterOperator,selectedAdvancedFilter,newAdvancedFilterText)">
+            <fa class="fa fa-plus"></fa>
+          </button>
+        </div>
+
+      </div>
+    </form>
+
+
+    <div class="row add-filter-title" ng-show="queryParams.length">
+      <div class="columns small-12">
+        Filters
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="columns small-12">
+        <div ng-repeat="param in queryParams">
+          {{param.operator}} -- {{param.field}} -- {{param.text}}
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+

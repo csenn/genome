@@ -1,0 +1,13 @@
+
+
+
+**.DS_Store
+
+
+# App Settings #
+
+
+# Client Code #
+client/node_modules/**
+client/app/bower_components/**
+client/.tmp/**

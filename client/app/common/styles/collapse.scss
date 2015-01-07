@@ -1,0 +1,19 @@
+.collapse-directive{
+	.top-row{
+		position: relative;
+		padding-left: 20px;
+		.fa{
+			position: absolute;
+			left:5px;
+			top:7px;
+			font-size: 12px;
+			color:rgb(150,150,150);
+		}
+		label{
+			display: inline-block;
+		}
+	}
+	.collapse-content{
+		padding-left: 20px;
+	}
+}

@@ -1,0 +1,17 @@
+<span class="drop-down-container">
+	<button class="hover-pointer selected-label" aria-controls="drop-down" aria-expanded="false">
+  		{{selectedItem.display}}
+ 	</button>
+	<ul class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
+	  <li ng-repeat="item in items" ng-click="selectItem(item,$index)">
+     	<div class="row">
+     		<div class="columns small-3">
+     			<strong>{{item.display}}</strong> 
+     		</div>
+     		<div class="columns small-9">
+     			{{item.desc}}
+     		</div>
+     	</div>
+	  </li>
+	</ul>
+</span>

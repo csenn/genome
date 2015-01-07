@@ -1,0 +1,11 @@
+<div class="collapse-directive">
+	<div class="top-row">
+		<span class="hover-pointer" ng-click="isOpen = !isOpen">
+			<span ng-show="doShowIcon() && !isOpen" class="fa fa-plus"></span>
+			<span ng-show="doShowIcon() && isOpen" class="fa fa-minus"></span>
+			<label>{{label}}</label>
+		</span>
+
+	</div>
+	<div class="collapse-content" ng-show="isOpen" ng-transclude></div>
+</div>

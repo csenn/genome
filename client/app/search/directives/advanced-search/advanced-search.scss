@@ -1,0 +1,184 @@
+
+$distFromSide:10%;
+
+#search{
+
+	.advanced-search{
+		display: none;
+		position: absolute;
+		right:40%;
+		left:1%;
+		right:29%;
+/*		left:$distFromSide;
+		right:$distFromSide;*/
+		top:65px;
+		background:$lightGold;
+		max-height:80%;
+		height: 80%;
+		/*box-shadow: 0px 2px 2px 0px $darkGold;*/
+		box-shadow: 0px 1px 2px 0px rgb(210,210,210);
+		overflow: hidden;
+		color:rgb(100,100,100);
+		padding: 0px 0px 20px 0px;
+		z-index:2;
+
+		.header-item{
+			position: absolute;
+			top:0;
+			height: 55px;
+			width: 23%;
+			left:0;
+			z-index:1;
+			/*text-align: center;*/
+			padding-top:15px;
+			padding-left: 15px;
+			color:rgb(140,140,140);
+			font-size: 15px;
+			.name{
+				color: rgb(100,100,100);
+			}
+		}
+
+		.search-items{
+			position: absolute;
+			left:0;
+			top:55px;
+			bottom: 0;
+			width: 23%;
+			overflow: scroll;
+			box-shadow: inset 0 1px 1px 1px $darkerGold;
+
+			.search-item{
+				color:rgb(130,130,130);
+				background: white;
+				padding:10px;
+				border-bottom:1px solid rgb(240,240,240);
+			}
+			.selected-search-item{
+				background: rgb(245,245,245);
+			}
+		}
+
+		.search-content{
+			position: absolute;
+			right:0;
+			left:23%;
+			top:0;
+			bottom:0;
+			padding: 0 0px;
+			overflow: scroll;
+
+
+			button{
+				margin: 0;
+				padding: 8px 15px;
+			}
+
+			.advanced-title{
+				padding:15px 15px 15px 18px;
+				text-align: left;
+				font-size: 17px;
+				color:rgb(110,110,110);
+				font-weight: bold;
+				/*color:$lightGold;*/
+				span{
+					font-weight: normal;
+					margin-right: 40px;
+					display: inline-block;
+					color:rgb(160,160,160);
+					float: right;
+					&:hover{
+						color:rgb(120,120,120);
+					}
+				}
+/*				.fa{
+					color:rgb(150,150,150);
+					float: right;
+				}*/
+			}
+
+			.query-well{
+				position: relative;
+				padding: 17px;
+				background:$darkGold;
+				color:rgb(120,120,120);
+				padding-right: 85px;
+				margin: 0 15px;
+				font-size: 16px;
+				font-style: italic;
+				box-shadow: inset 0 0px 3px 0px $darkerGold;
+
+				.search-btn{
+					position: absolute;
+					top:3px;
+					right:3px;
+					bottom: 3px;
+					width: 85px;
+					padding: 17px 25px 17px 25px;
+				}
+			}
+
+
+			.add-param-form{
+				margin-top: 40px;
+
+				.selected-filter-name{
+					padding: 3px 17px;
+					color:rgb(100,100,100);
+					span{
+						color:rgb(140,140,140);
+					}
+				}
+
+				select,input{
+					margin: 0;
+				}
+				select{
+					height: 46px;
+				}
+				input{
+					height: 46px;
+				}
+				.text-input-box{
+					position: relative;
+				}
+				.add-btn{
+					width: 100%;
+					height: 100%;
+					padding: 13px 25px;
+				}
+				.choose-box{
+					padding: 13px 0 13px 10px;
+					font-size: 13px;
+					background: $darkGold;
+					color:rgb(120,120,120);
+				}
+
+			}
+
+			.param-items{
+
+				/*margin: 0 15px;*/
+				margin-top: 15px;
+				margin-bottom: 15px;
+				color:rgb(120,120,120);
+				font-size: 15px;
+				.param-item{
+					background:$darkGold;
+					padding: 8px 0;
+					border-bottom:1px solid $lightGold;
+					.operator-hide{
+						color:$darkGold;
+					}
+					.center-me{
+						text-align: center;
+			 		}
+			 		.fa{
+			 			color:#FD7171;
+			 		}
+				}
+			}
+		}
+
+	}
+}
