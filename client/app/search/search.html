@@ -7,14 +7,14 @@
 
       <button
         type="submit"
-        class="search-btn"
+        class="search-btn blue-btn"
         ng-click="searchForText(search.text)"
         ng-disabled="!search.text">
         <fa class="fa fa-search"></fa>
       </button>
 
       <button
-        class="help-btn"
+        class="help-btn blue-btn"
         ng-click="toggleHelp();"
         ng-disabled="!selectedDb.name">
         <fa class="fa fa-question"></fa>
@@ -42,9 +42,21 @@
   <div class="row"  ng-if="!selectedDb.name">
     <div class="columns small-10 small-offset-1 end">
       <div class="welcome-box">
-        <p>Welcome!</p>
-        <p><strong>Choose</strong> a Database to Search</p>
-        <p>Click the <fa class="fa fa-question"></fa> button to get more info on any database</p>
+        <div class="title">Welcome!</div>
+        <p>
+          NCBI Explorer is an early stage app that allows academics, scientists, and any interested parties to explore a subset of the National Center For Biotechnology Information (NCBI) databases. The main goal of this project is to create a fast and easy way to navigate a complex data set using modern web technologies.
+        </p>
+        <div>
+          See <a href="http://www.ncbi.nlm.nih.gov/">NCBI</a> for more information
+        </div>
+        <div class="start-by">
+          To Start
+          <ol>
+            <li><strong>Choose</strong> a Database to Search</li>
+            <li>Click the <fa class="fa fa-question"></fa> to get more info on any database</li>
+            <li>Use the <strong>Advanced Search Tool</strong> to build queries</li>
+          </ol>
+        </div>
       </div>
     </div>
   </div>
@@ -52,11 +64,10 @@
   <ge-advanced-search is-open="showAdvanced" selected-db="selectedDb">
   </ge-advanced-search>
 
-  <div  class="row" ng-if="showHelp">
-    <div id="help-box" class="column small-10 small-offset-1" >
-      <div ng-include="'/search/dbs/' + selectedDb.name + '/help.html'"></div>
-    </div>
-  </div>
+<!--   <div ng-if="showHelp">
+  </div> -->
+
+  <ge-db-help is-open="showHelp" selected-db="selectedDb"></ge-db-help>
 
   <div
     class="enter-search-terms"
@@ -90,8 +101,11 @@
 
       <div class="search-section-content">
         <div ng-include="'/search/dbs/' + selectedDb.name + '/search-results.html'"></div>
-        <div class="bottom-box" ng-show="search.results.uids.length > 0">
-          Source: http://www.ncbi.nlm.nih.gov/{{selectedDb.name}}
+        <div class="bottom-box" ng-show="search.results.length > 0">
+          Source: 
+          <a href="http://www.ncbi.nlm.nih.gov/{{selectedDb.name}}" target="_blank">
+            http://www.ncbi.nlm.nih.gov/{{selectedDb.name}}
+          </a>
         </div>
       </div>
 

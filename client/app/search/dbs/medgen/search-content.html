@@ -1,111 +1,117 @@
 <div class="search-results-content">
 
   <div class="selected-title">
-    {{selectedData.summary.title}}
+    <span class="name">{{selectedData.summary.title}}</span>
+    <span class="data-id">
+      uid - {{selectedData.summary.uid}}
+    </span>
   </div>
 
   <div class="search-results-content-data" ng-show="selectedData.summary">
 
+    <div class="row">
+      <div class="columns small-12">
 
-    <ge-collapse
-      class="summary-collapse"
-      label="'Summary'"
-      ng-show="selectedData.summary.meta.result.AssociatedGenes"
-      open="true">
+        <ge-collapse
+          class="summary-collapse"
+          label="'Summary'"
+          ng-show="selectedData.summary.meta.result.AssociatedGenes"
+          open="true">
 
-      <div class="row" ng-show="selectedData.summary.meta.result.AssociatedGenes.Gene._chromosome">
-        <div class="columns small-3">
-          <strong>Chromosome:</strong>
-        </div>
-        <div class="columns small-9">
-          {{selectedData.summary.meta.result.AssociatedGenes.Gene._chromosome}}
-        </div>
-      </div>
+          <div class="row" ng-show="selectedData.summary.meta.result.AssociatedGenes.Gene._chromosome">
+            <div class="columns small-3">
+              <strong>Chromosome:</strong>
+            </div>
+            <div class="columns small-9">
+              {{selectedData.summary.meta.result.AssociatedGenes.Gene._chromosome}}
+            </div>
+          </div>
 
-      <div class="row" ng-show="selectedData.summary.meta.result.AssociatedGenes.Gene.__text">
-        <div class="columns small-3">
-          <strong>Name:</strong>
-        </div>
-        <div class="columns small-9">
-          {{selectedData.summary.meta.result.AssociatedGenes.Gene.__text}}
-        </div>
-      </div>
+          <div class="row" ng-show="selectedData.summary.meta.result.AssociatedGenes.Gene.__text">
+            <div class="columns small-3">
+              <strong>Name:</strong>
+            </div>
+            <div class="columns small-9">
+              {{selectedData.summary.meta.result.AssociatedGenes.Gene.__text}}
+            </div>
+          </div>
 
-      <div class="row" ng-show="selectedData.summary.meta.result.AssociatedGenes.Gene._cytogen_loc">
-        <div class="columns small-3">
-          <strong>Cytogenetic location:</strong>
-        </div>
-        <div class="columns small-9">
-          {{selectedData.summary.meta.result.AssociatedGenes.Gene._cytogen_loc}}
-        </div>
-      </div>
+          <div class="row" ng-show="selectedData.summary.meta.result.AssociatedGenes.Gene._cytogen_loc">
+            <div class="columns small-3">
+              <strong>Cytogenetic location:</strong>
+            </div>
+            <div class="columns small-9">
+              {{selectedData.summary.meta.result.AssociatedGenes.Gene._cytogen_loc}}
+            </div>
+          </div>
 
-      <div class="row" ng-show="selectedData.summary.meta.result.ModesOfInheritance.ModeOfInheritance.Name">
+          <div class="row" ng-show="selectedData.summary.meta.result.ModesOfInheritance.ModeOfInheritance.Name">
 
-        <div class="columns small-3">
-          <strong>Mode Of Inheritance:</strong>
-        </div>
-        <div class="columns small-9">
-          <ge-collapse class="child-collapse"
-          style="display:inline-block;"
-          label="selectedData.summary.meta.result.ModesOfInheritance.ModeOfInheritance.Name">
-            {{selectedData.summary.meta.result.ModesOfInheritance.ModeOfInheritance.Definition}}
-          </ge-collapse>
-        </div>
-      </div>
-
-    </ge-collapse>
-
-    <ge-collapse
-      label="'Definition'"
-      class="def-box"
-      ng-show="selectedData.summary.meta.result.Definitions"
-      open="true">
-        <div ng-repeat="def in selectedData.summary.meta.result.Definitions.Definition_asArray">
-          {{def.__text}}
-          <div>source: {{def._source}}</div>
-        </div>
-    </ge-collapse>
-
-    <ge-collapse
-      class="syn-box"
-      label="'Synonymns'"
-      ng-show="getSynonymnString(selectedData.summary.meta.result.Names.Name)">
-      {{getSynonymnString(selectedData.summary.meta.result.Names.Name)}}
-    </ge-collapse>
-
-
-
-<!--     <ge-collapse
-      label="'Mode Of Inheritance'"
-      open="true"
-      ng-show="selectedData.summary.meta.result.ModesOfInheritance.ModeOfInheritance.Name">
-      
-    </ge-collapse> -->
-
-
-
-
-    <ge-collapse label="'Clinical Features'" ng-show="selectedData.summary.meta.result.ClinicalFeatures">
-      <div ng-repeat="feature in selectedData.summary.meta.result.ClinicalFeatures.ClinicalFeature_asArray | orderBy:'Name'">
-        <ge-collapse label="feature.Name" class="child-collapse" show-icon="feature.Definition">
-          {{feature.Definition}}
-        </ge-collapse>
-      </div>
-    </ge-collapse>
-
-
-    <ge-collapse label="'Phenotypic Abnormalities'" ng-show="selectedData.summary.meta.result.PhenotypicAbnormalities">
-      <div ng-repeat="cat in selectedData.summary.meta.result.PhenotypicAbnormalities.Category_asArray | orderBy:'_name'" >
-        <ge-collapse label="cat._name" show-icon="cat.ClinicalFeature" class="child-collapse">
-          <div ng-repeat="feature in cat.ClinicalFeature_asArray">
-              <ge-collapse class="child-collapse" label="feature.Name" show-icon="feature.Definition">
-                {{feature.Definition}}
+            <div class="columns small-3">
+              <strong>Mode Of Inheritance:</strong>
+            </div>
+            <div class="columns small-9">
+              <ge-collapse class="child-collapse"
+              style="display:inline-block;"
+              label="selectedData.summary.meta.result.ModesOfInheritance.ModeOfInheritance.Name">
+                {{selectedData.summary.meta.result.ModesOfInheritance.ModeOfInheritance.Definition}}
               </ge-collapse>
+            </div>
+          </div>
+
+        </ge-collapse>
+
+        <ge-collapse
+          label="'Definition'"
+          class="def-box"
+          ng-show="selectedData.summary.meta.result.Definitions"
+          open="true">
+            <div ng-repeat="def in selectedData.summary.meta.result.Definitions.Definition_asArray">
+              {{def.__text}}
+              <div>source: {{def._source}}</div>
+            </div>
+        </ge-collapse>
+
+        <ge-collapse
+          class="syn-box"
+          label="'Synonymns'"
+          ng-show="getSynonymnString(selectedData.summary.meta.result.Names.Name)">
+          {{getSynonymnString(selectedData.summary.meta.result.Names.Name)}}
+        </ge-collapse>
+
+
+
+    <!--     <ge-collapse
+          label="'Mode Of Inheritance'"
+          open="true"
+          ng-show="selectedData.summary.meta.result.ModesOfInheritance.ModeOfInheritance.Name">
+          
+        </ge-collapse> -->
+
+
+
+
+        <ge-collapse label="'Clinical Features'" ng-show="selectedData.summary.meta.result.ClinicalFeatures">
+          <div ng-repeat="feature in selectedData.summary.meta.result.ClinicalFeatures.ClinicalFeature_asArray | orderBy:'Name'">
+            <ge-collapse label="feature.Name" class="child-collapse" show-icon="feature.Definition">
+              {{feature.Definition}}
+            </ge-collapse>
+          </div>
+        </ge-collapse>
+
+
+        <ge-collapse label="'Phenotypic Abnormalities'" ng-show="selectedData.summary.meta.result.PhenotypicAbnormalities">
+          <div ng-repeat="cat in selectedData.summary.meta.result.PhenotypicAbnormalities.Category_asArray | orderBy:'_name'" >
+            <ge-collapse label="cat._name" show-icon="cat.ClinicalFeature" class="child-collapse">
+              <div ng-repeat="feature in cat.ClinicalFeature_asArray">
+                  <ge-collapse class="child-collapse" label="feature.Name" show-icon="feature.Definition">
+                    {{feature.Definition}}
+                  </ge-collapse>
+              </div>
+            </ge-collapse>
           </div>
         </ge-collapse>
       </div>
-    </ge-collapse>
-
+    </div>
   </div>
 </div>

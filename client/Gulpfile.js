@@ -15,7 +15,7 @@ var bower      = require('bower');
 
 var paths = {
   app:{
-    //images           : 'app/images/**',
+    images           : 'app/common/images/**',
     stylesMain       : 'app/common/main.scss',
     styles           : ['!app/bower_components/**', 'app/**/**.scss'],
     fonts            : 'app/fonts/**',
@@ -27,9 +27,8 @@ var paths = {
   },
   dist:{
     root     : 'dist',
-    images   : 'dist/images',
-    fonts    : 'dist/fonts',
-    partials : 'dist/partials'
+    images   : 'dist/common/images',
+    fonts    : 'dist/common/fonts'
   },
   views:{
     index : 'app/index.html',

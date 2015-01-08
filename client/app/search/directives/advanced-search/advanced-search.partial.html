@@ -33,7 +33,10 @@
         <div ng-show="selected.advancedFilter && !queryStr">Build query below</div>
         <div ng-show="queryStr">{{queryStr}}</div>
 
-        <button class="search-btn grey-btn" ng-click="search()">
+        <button 
+          class="search-btn blue-btn" 
+          ng-click="search()"
+          ng-disabled="!queryStr">
           <fa class="fa fa-search"></fa>
         </button>
       </div>

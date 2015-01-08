@@ -7,8 +7,9 @@ angular.module('genomeApp',[
   .config(function ($routeProvider,$locationProvider,$httpProvider) {
     $routeProvider
       .when('/search', {
-        templateUrl : '/search/search.html',
-        controller  : 'SearchCtrl'
+        templateUrl    : '/search/search.html',
+        controller     : 'SearchCtrl',
+        reloadOnSearch : false
       })
       .otherwise({
         redirectTo: '/search'

@@ -1,14 +1,22 @@
 
+//var query = 'Dystrophin[title]+AND+homo+sapiens[organism]';
+//var query = 'achondroplasia';
+//$scope.searchText = 'FGFR3';
+//var query = 'homo sapiens';
+
+
+
 angular.module('genomeApp')
 
-	.controller('SearchCtrl',function($scope,$http,NcbiApi,RequestHandler,SearchQuery){
+	.controller('SearchCtrl',function($scope,$http,NcbiApi,RequestHandler,SearchQuery,$location){
+
 
 		/* Init Variables
 		*/
 		$scope.dbs = [
       {display : 'Choose One',  name:null,      desc: 'Brief Description'},
 			{display : 'Gene',        name:'gene',    desc: 'Gene provides detailed information about genes'},
-			{display : 'Med Gen',     name:'medgen',  desc: 'Med Gen provides medical literature about genetic diseases and findings'},
+			{display : 'Med Gen',     name:'medgen',  desc: 'Med Gen provides information about genetic diseases and findings'},
 			{display : 'Protein',     name:'protein', desc: 'Protein provides sequence and genome info'}
 		];
 		$scope.selectedDb = $scope.dbs[0];
@@ -26,21 +34,45 @@ angular.module('genomeApp')
       resultCount : 0,
       query       : {
         page  : 0,
-        limit : 10
+        limit : 20
       },
-     };
+    };
+
+
+    function init(){
+      var params = $location.search();
+
+      if (params.db){
+        selectDbByName(params.db);
+      }
+      if (params.term){
+        SearchQuery.setCurrentText(params.term);
+      }
+    }
+    init();
+
+
+
 
 
     /* Helpers
-     */
+    */
+    function selectDbByName(name){
+      angular.forEach($scope.dbs,function(db){
+        if (db.name === name){
+          $scope.selectedDb = db;
+        }
+      });
+    }
+
+    function isIdSearch(term){
+      return term.indexOf('[UID]') !== -1;
+    }
+
     $scope.getSynonymnString = function(arr){
       if (!angular.isArray(arr)) return '';
       return arr.join('; ');
     };
-
-    // $scope.getResultRank = function(index){
-    //   return $scope.searchQuery.page * $scope.searchQuery.limit + index + 1;
-    // };
 
     $scope.getPageSpread = function(){
       var first,last;
@@ -60,28 +92,27 @@ angular.module('genomeApp')
     };
 
 
+    $scope.selectSearchResult = function(result){
+      $scope.selectedData.summary = result;
+      getDataDetailed(result.uid);
+    };
+
     $scope.$watch('selectedDb',function(newVal){
       $scope.showZeroResults = false;
+      $scope.search.resultCount = 0;
+      if (newVal.name){
+        $location.search('db',newVal.name);
+      }
     });
 
     $scope.$watch('search.text',function(newVal){
       $scope.showZeroResults = false;
     });
 
-		//var db    = 'protein';
-		//var query = 'Dystrophin[title]+AND+homo+sapiens[organism]';
 
-		//var db    = 'medgen';
 
-		//db ="gene";
-		//var query = 'achondroplasia';
-		//$scope.searchText = 'FGFR3';
-		//var db    = 'genome';
-		//var query = 'homo sapiens';
-		//retmax:10
-		//retstart
 
-    /* Help and Advanced Toggles
+    /* Toggles - Help and Advanced
     */
     $scope.toggleHelp = function(){
       $scope.showHelp = !$scope.showHelp;
@@ -89,7 +120,6 @@ angular.module('genomeApp')
         $scope.showAdvanced = false;
       }
     };
-
 
     $scope.toggleAdvanced = function(){
       $scope.showAdvanced = !$scope.showAdvanced;
@@ -102,7 +132,9 @@ angular.module('genomeApp')
 
 
 
-    /* Search
+
+    /* Search Controls
+     * Will run search whenever SearchQuery.currentText changes
      */
     $scope.$watch(function(){
       return SearchQuery.getCurrentTextReadable();
@@ -115,9 +147,6 @@ angular.module('genomeApp')
 		$scope.searchForText = function(text){
       $scope.search.query.page = 0;
       SearchQuery.setCurrentText(text);
-      if ($scope.selectedDb.name === 'medgen'){
-        SearchQuery.setCurrentText(text + ' AND "diseases"[Filter]');
-      }
 			//query += '+AND+medgen_gene_diseases[Filter]';
 			//query +=  '+AND+disease+or+syndrome[semantictype]';
 		};
@@ -146,12 +175,22 @@ angular.module('genomeApp')
     };
 
 
+
+
+
+
+    /* Get Data Functions
+     */
     function search(){
 
+      var idSearch = false;
       var db   = $scope.selectedDb.name;
       var text = SearchQuery.getCurrentTextMachine();
 
       if (!db || !text) return;
+
+      $location.search('term',text);
+      idSearch = isIdSearch(text);
 
       /* Todo: sort parameters can be differ in each DB, need to find source */
       var options = {
@@ -169,11 +208,10 @@ angular.module('genomeApp')
         var count = Number(data.esearchresult.count);
         $scope.search.resultCount = count;
         if (count === 0){
-          console.log('asdasd');
           $scope.showZeroResults = true;
         }
         if(ids && ids.length){
-           getDataSummary(ids);
+           getDataSummary(ids,idSearch);
         }
       },function(err){
         console.log(err);
@@ -181,26 +219,23 @@ angular.module('genomeApp')
     }
 
 
-
-
-	  //getData('protein','kinase[title]+AND+homo+sapiens[organism]');
-
-	  // $scope.selectSearchResult = function(result){
-	  // 	getOtherOtherData(db,result.uid);
-	  // };
-
-
-	  $scope.selectSearchResult = function(result){
-	  	$scope.selectedData.summary = result;
-      getDataDetailed(result.uid);
-	  };
-
-		function getDataSummary(ids){
+		function getDataSummary(ids,idSearch){
 
       var db = $scope.selectedDb.name;
+      $scope.search.results.length = 0;
 
       RequestHandler.summary(db,ids).then(function(data){
-        $scope.search.results = data.result;
+
+        angular.forEach(data.result, function(val,prop){
+          if (prop !== "uids"){
+            $scope.search.results.push(val);
+          }
+        });
+
+        /* Select First Result if an id search */
+        if (idSearch){
+          $scope.selectSearchResult($scope.search.results[0]);
+        }
       },function(err){
         console.log(err);
       });

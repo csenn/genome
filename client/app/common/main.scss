@@ -1,8 +1,13 @@
 
+$mainColor:#0584ae;
+$mainLightColor: #43a3c3;
+
+
 @import "../search/search";
 @import "styles/button";
 @import "styles/collapse";
 @import "styles/drop-down";
+
 
 .body-wrapper{
 	background: rgb(250,250,250);

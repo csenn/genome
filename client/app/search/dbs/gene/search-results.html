@@ -1,12 +1,13 @@
 <div class="search-result hover-pointer"
 	ng-repeat="result in search.results"
 	ng-if="result.name"
+	ng-class="result === selectedData.summary ? 'selected-search-result' : '' "
 	ng-click="selectSearchResult(result);">
 	<div class="result-name">
 		{{result.name}}
 	</div>
 	<p>{{result.summary}}</p>
-	<div class="semantic-type">
-		{{result.semantictype}}
+	<div class="bottom-desc">
+		{{result.organism.scientificname}}
 	</div>
 </div>
