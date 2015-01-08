@@ -18,12 +18,12 @@ var paths = {
     images           : 'app/common/images/**',
     stylesMain       : 'app/common/main.scss',
     styles           : ['!app/bower_components/**', 'app/**/**.scss'],
-    fonts            : 'app/fonts/**',
+    fonts            : 'app/common/fonts/**',
     partials         : ['!app/bower_components/**', 'app/**/**.html'],
     fontAwesomeFonts : [
       'app/bower_components/components-font-awesome/fonts/**',
       'app/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/**'
-      ]
+    ]
   },
   dist:{
     root     : 'dist',
@@ -36,7 +36,8 @@ var paths = {
   tmp:{
     root   : '.tmp',
     styles : '.tmp/styles',
-    js     : '.tmp/js'
+    js     : '.tmp/js',
+    fonts  : '.tmp/common/fonts'
   }
 };
 
@@ -61,6 +62,10 @@ gulp.task('clean-tmp-js', function () {
     .pipe(clean({force: true}));
 });
 
+gulp.task('clean-tmp-fonts', function () {
+  return gulp.src(paths.tmp.fonts, {read: false})
+    .pipe(clean({force: true}));
+});
 
 
 
@@ -79,7 +84,6 @@ gulp.task('make-css', ['clean-tmp-styles'], function() {
     .pipe(gulp.dest(paths.tmp.styles));
 });
 
-
 /*
   Turn templates into js and store in .tmp folder (angular temlate cache)
 */
@@ -97,6 +101,8 @@ gulp.task('make-partials-js',['clean-tmp-js'],function(){
     .pipe(concat("partials.js"))
     .pipe(gulp.dest(paths.tmp.js));
 });
+
+
 
 
 /*
@@ -126,6 +132,8 @@ gulp.task('images', function() {
 });
 
 
+
+
 /*
   Fonts
 */
@@ -140,8 +148,11 @@ gulp.task('font-awesome-fonts',function(){
     .pipe(gulp.dest(paths.dist.fonts));
 });
 
-
-
+/* Move fonts */
+gulp.task('font-awesome-fonts-tmp',['clean-tmp-fonts'],function(){
+  return gulp.src(paths.app.fontAwesomeFonts)
+    .pipe(gulp.dest(paths.tmp.fonts));
+});
 
 
 /* Helpers
@@ -171,7 +182,7 @@ gulp.task('bower', function(cb){
 /* Cli Api
  *
  */
-gulp.task('dev',['make-css','make-partials-js','watch-dev']);
+gulp.task('dev',['make-css','make-partials-js','watch-dev','font-awesome-fonts-tmp']);
 
 
 gulp.task('build',['bower','make-css','make-partials-js','clean-dist'],function(){

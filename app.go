@@ -11,7 +11,7 @@ func main() {
 	port := os.Getenv("PORT")
 
 	if env == "" {
-		env = "production"
+		env = "development"
 	}
 
 	if port == "" {
@@ -20,6 +20,7 @@ func main() {
 
 	if env == "development" {
 		http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("client/.tmp/styles"))))
+		http.Handle("/common/fonts/", http.StripPrefix("/common/fonts/", http.FileServer(http.Dir("client/.tmp/common/fonts"))))
 		http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("client/.tmp/js"))))
 		http.Handle("/", http.FileServer(http.Dir("./client/app")))
 	} else {

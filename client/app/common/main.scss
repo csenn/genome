@@ -2,6 +2,9 @@
 $mainColor:#0584ae;
 $mainLightColor: #43a3c3;
 
+$fa-font-path: "../common/fonts";
+@import "../bower_components/components-font-awesome/scss/font-awesome.scss";
+
 
 @import "../search/search";
 @import "styles/button";

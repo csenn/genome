@@ -21,7 +21,7 @@ $darkGold: rgb(250,250,250);*/
 #search{
 
 	.search-top{
-
+		position: relative;
 		background: white;
 		padding:10px;
 		box-shadow: 0px 1px 1px 0px rgb(230,230,230);
@@ -34,7 +34,7 @@ $darkGold: rgb(250,250,250);*/
 			display:inline-block;
 			width: 59%;
 			padding:0px 15px 0px 15%;
-			height: 2.8125rem;
+			height:45px;
 			font-size: .9rem;
 			margin:0;
 			border:1px solid rgb(220,220,220);
@@ -45,30 +45,34 @@ $darkGold: rgb(250,250,250);*/
 		}
 
 		.help-btn{
-			margin-top: 1px;
 			position: absolute;
-			display:inline-block;
+			top:10px;
+			bottom:10px;
 			left:1%;
+			margin-top: 1px;
+			display:inline-block;
 			width: 4%;
 			padding:12px 0 13px 0;
 			margin: 0;
+
 		}
 
 
 		.db-btn-container{
 			.selected-label{
 				position: absolute;
-				top:10px;
 				left:5%;
+				top:10px;
+				bottom:10px;
 				margin: 0;
 				width:10%;
-				padding:13px 0 13px 0;
+				padding:12px 0 12px 0;
 				font-size: 14px;
-				margin:1px 0 0 1px;
 				z-index:2;
 				border-right:1px solid rgb(230,230,230);
 				background: $btnGreyBackground;
 				background-color: rgb(235,235,235);
+
 				&:active {
 				 	background: rgb(235,235,235);
 				 	box-shadow: inset 0 0 4px 2px rgb(225,225,225);
@@ -80,10 +84,11 @@ $darkGold: rgb(250,250,250);*/
 		}
 
 		.search-btn{
-			margin-top: 1px;
 			position: absolute;
-			display:inline-block;
 			left:55%;
+			top:10px;
+			bottom: 10px;
+			display:inline-block;
 			width: 5%;
 			padding:12px 0 13px 0;
 			margin: 0;
@@ -99,6 +104,7 @@ $darkGold: rgb(250,250,250);*/
 			border:0;
 			margin-top: 1px;
 			margin-right: 1px;
+			box-shadow: 0 1px 1px 0 rgb(200,200,200);
 		}
 
 		.spinner{
